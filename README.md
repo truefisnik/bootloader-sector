@@ -1,5 +1,8 @@
 # Bootloader
-*Bootloader* is a small program that is executed under boot up in 16-bit **Real Mode**. It is very small, in fact, it is only 512 bytes and it resides on the very first sector of a boot device, **sector 0**. The bootloader is used to load more complex programs like an OS Kernel. The 512-byte bootloader code is stored with the *Master Boot Record (MBR)* and is loaded by the *Basic Input/Output System (BIOS)* via Interrupt (INT) 0x19 at **0x0000:0x7c00h**. This is a standard sequence in booting for almost all x86 PCs, except that in some PCs it can be loaded to 0x7c00:0x0000h.
+*Bootloader* is a small program that usually resides in the very first sector and is loaded and executed after the *Basic Input/output System (BIOS)* via a BIOS Interrupt. A bootloader sector is only 512 bytes. The bootloader code resides on **sector 0** in the *Master Boot Record (MBR)*. The BIOS looks for the entry to the bootloader on memory address **0x0000:0x7c00h** using the `INT 19h`. 
+
+This is the standard boot sequence in almost all x86 PCs, and in some PCs the memory address is reversed: 0x7c00:0x0000h.     
+
 
 ## Build
 `nasm -f bin bootloader.asm -o bootloader.img`
